@@ -4,6 +4,8 @@ import { FormattedMessage } from 'react-intl';
 import { DownOutlined } from '@ant-design/icons';
 import { SharedProps } from './interface';
 
+const smallStyle = { fontSize: 12, color: '#777', marginLeft: '0.3em' };
+
 export function getEcosystemGroup({ isZhCN }: SharedProps): React.ReactNode {
   return [
     <Menu.Item key="charts">
@@ -26,6 +28,16 @@ export function getEcosystemGroup({ isZhCN }: SharedProps): React.ReactNode {
         <FormattedMessage id="app.header.menu.pro.v4" />
       </a>
     </Menu.Item>,
+    <Menu.Item key="procomponents">
+        <a
+          href="http://procomponents.ant.design"
+          className="header-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FormattedMessage id="app.header.menu.pro.components" />
+        </a>
+      </Menu.Item>,
     <Menu.Item key="ng">
       <a
         href="http://ng.ant.design"
@@ -34,16 +46,22 @@ export function getEcosystemGroup({ isZhCN }: SharedProps): React.ReactNode {
         rel="noopener noreferrer"
       >
         Ant Design of Angular
+        <span style={smallStyle}>
+          (<FormattedMessage id="app.implementation.community" />)
+        </span>
       </a>
     </Menu.Item>,
     <Menu.Item key="vue">
       <a
-        href="http://vue.ant.design"
+        href="http://antdv.com"
         className="header-link"
         target="_blank"
         rel="noopener noreferrer"
       >
         Ant Design of Vue
+        <span style={smallStyle}>
+          (<FormattedMessage id="app.implementation.community" />)
+        </span>
       </a>
     </Menu.Item>,
     isZhCN ? (

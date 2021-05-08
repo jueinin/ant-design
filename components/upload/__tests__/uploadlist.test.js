@@ -201,8 +201,10 @@ describe('Upload List', () => {
     });
 
     // Wait twice since `errorRequest` also use timeout for mock
-    await sleep();
-    await sleep();
+    await act(async () => {
+      await sleep();
+      await sleep();
+    });
 
     expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({
@@ -212,7 +214,11 @@ describe('Upload List', () => {
       }),
     );
 
-    wrapper.update();
+    await act(async () => {
+      await sleep(1000);
+      wrapper.update();
+    });
+
     expect(wrapper.render()).toMatchSnapshot();
 
     // Error message
@@ -1127,22 +1133,28 @@ describe('Upload List', () => {
     const wrapper = mount(<MyUpload />);
 
     // Mock async update in a frame
-    const files = ['light', 'bamboo', 'little'];
+    const fileNames = ['light', 'bamboo', 'little'];
 
-    /* eslint-disable no-await-in-loop */
-    for (let i = 0; i < files.length; i += 1) {
-      await Promise.resolve();
-      uploadRef.current.onStart({
-        uid: files[i],
-        name: files[i],
-      });
-    }
-    /* eslint-enable */
+    act(() => {
+      uploadRef.current.onBatchStart(
+        fileNames.map(fileName => {
+          const file = new File([], fileName);
+          file.uid = fileName;
 
-    expect(uploadRef.current.fileList).toHaveLength(files.length);
+          return {
+            file,
+            parsedFile: file,
+          };
+        }),
+      );
+    });
 
-    jest.runAllTimers();
-    expect(uploadRef.current.fileList).toHaveLength(files.length);
+    expect(uploadRef.current.fileList).toHaveLength(fileNames.length);
+
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(uploadRef.current.fileList).toHaveLength(fileNames.length);
 
     wrapper.unmount();
 

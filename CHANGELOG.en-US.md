@@ -15,6 +15,121 @@ timeline: true
 
 ---
 
+## 4.15.4
+
+`2021-04-30`
+
+- 🐞 Fix Menu.Item width issue when `collapsedWidth` is set. [#30357](https://github.com/ant-design/ant-design/pull/30357) [@Map1en](https://github.com/Map1en)
+- 🐞 Fix Radio check spin style sometime height too long. [#30367](https://github.com/ant-design/ant-design/pull/30367)
+- 🐞 Fix Typography.Link open link when trigger `editable`. [#30354](https://github.com/ant-design/ant-design/pull/30354) [@John60676](https://github.com/John60676)
+- 🐞 InputNumber clean up input will trigger `onChange(null)` now. [#30337](https://github.com/ant-design/ant-design/pull/30337)
+- 🐞 Fix Dropdown.Button broken style when inside Modal `footer`. [#30328](https://github.com/ant-design/ant-design/pull/30328) [@Map1en](https://github.com/Map1en)
+- 💄 Replace Anchor default background from `#FFFFFF` to `transparent`. [#30336](https://github.com/ant-design/ant-design/pull/30336)
+- 🌐 Add `ko_KR` and `ja_JP` TimePicker.RangePicker placeholder. [#30285](https://github.com/ant-design/ant-design/pull/30285) [@ChalkPE](https://github.com/ChalkPE)
+- TypeScript
+  - 🤖 Fix Upload type definition of `beforeUpload` and `UploadFile`. [#30351](https://github.com/ant-design/ant-design/pull/30351) [#30343](https://github.com/ant-design/ant-design/pull/30343) [@kerm1it](https://github.com/kerm1it)
+
+## 4.15.3
+
+`2021-04-25`
+
+- Table
+  - 🐞 Fix Table selection column width when bordered is true. [#30304](https://github.com/ant-design/ant-design/pull/30304)
+  - 🚨 Add warning when Table `current` is negative number. [#30242](https://github.com/ant-design/ant-design/pull/30242) [@wadezhan](https://github.com/wadezhan)
+- 🐞 Fix Button `type="link"` should not redirect when it is `disabled`. [#30209](https://github.com/ant-design/ant-design/pull/30209)
+- 🐞 Fix Upload appear errors when url of file is `null`. [#30215](https://github.com/ant-design/ant-design/pull/30215)
+- 🐞 Fix padding on a SubMenu inside an ItemGroup. [#30218](https://github.com/ant-design/ant-design/pull/30218) [@sebakerckhof](https://github.com/sebakerckhof)
+- 🐞 Fix Checkbox & Radio align issue in flex box. [#30260](https://github.com/ant-design/ant-design/pull/30260)
+- 🐞 Fix Badge broken animation on spin icon. [#30275](https://github.com/ant-design/ant-design/pull/30275)
+- 🐞 Fix Input `disabled` hover style in Form. [#30302](https://github.com/ant-design/ant-design/pull/30302) [@Fog3211](https://github.com/Fog3211)
+- TypeScript
+  - 🤖 Fix Upload type definition of `beforeUpload`. [#30213](https://github.com/ant-design/ant-design/pull/30213) [@hello-chinese](https://github.com/hello-chinese)
+
+## 4.15.2
+
+`2021-04-19`
+
+- 🐞 Fix Tabs `centered` doesn't work. [#30106](https://github.com/ant-design/ant-design/pull/30106) [@kerm1it](https://github.com/kerm1it)
+- 💄 Fix Button `type="link"` disabled cursor style missing. [#30197](https://github.com/ant-design/ant-design/pull/30197)
+- 🐞 Fix TextArea `onChange` event return `target` object is not a HTMLTextArea object. [#30124](https://github.com/ant-design/ant-design/pull/30124)
+- 🐞 Files in Upload `fileList` will always have uid. [#30087](https://github.com/ant-design/ant-design/pull/30087) [@jameslahm](https://github.com/jameslahm)
+- 💄 Fix Badge toggle style when `status` is `warning`. [#30090](https://github.com/ant-design/ant-design/pull/30090) [@jameslahm](https://github.com/jameslahm)
+- 🌐 Add Image component `preview` text in zh_HK and zh_TW. [#30100](https://github.com/ant-design/ant-design/pull/30100) [@jameslahm](https://github.com/jameslahm)
+- 🌐 add da_DK locale TimePicker.RangePicker. [#30128](https://github.com/ant-design/ant-design/pull/30128) [@themitvp](https://github.com/themitvp)
+- TypeScript
+  - 🤖 Modify LIST_IGNORE field is of string type. [#30188](https://github.com/ant-design/ant-design/pull/30188) [@hello-chinese](https://github.com/hello-chinese)
+
+## 4.15.1
+
+`2021-04-10`
+
+- 🐞 Fix Descriptions `labelStyle` `contentStyle` unsuccessful when `layout="vertical"` and `bordered={true}`. [#29942](https://github.com/ant-design/ant-design/pull/29942)
+- 🐞 Upload won't crash when `fileList` is a frozen object now. [#29944](https://github.com/ant-design/ant-design/pull/29944)
+- 🐞 Fix Tabs cannot scroll when vertical mode in Safari 13.1. [#29983](https://github.com/ant-design/ant-design/pull/29983)
+- 🐞 Fix Button throws `Cannot read property 'removeChild' of null` in some situation. [#29961](https://github.com/ant-design/ant-design/pull/29961) [@JohnDeved](https://github.com/JohnDeved)
+- 🐞 Fix Transfer button's box-shadow getting cut. [#30030](https://github.com/ant-design/ant-design/pull/30030) [@jinchaofs](https://github.com/jinchaofs)
+- 🐞 Fix CheckBox.Group cannot work with Form of `@ant-design/compatible`. [#30039](https://github.com/ant-design/ant-design/pull/30039) [@jameslahm](https://github.com/jameslahm)
+- 🐞 Fix PageHeader `<Tabs type="card" />` padding missing. [#29819](https://github.com/ant-design/ant-design/pull/29819)
+- Table
+  - 💄 Optimize Table pagination style when narrow width. [#30065](https://github.com/ant-design/ant-design/pull/30065)
+  - 🐞 Fix Table `@table-border-radius-base` not being applied to `.ant-table` node. [#29966](https://github.com/ant-design/ant-design/pull/29966) [@VoliBearCat](https://github.com/VoliBearCat)
+- 🐞 Fix Input.TextArea `maxLength` does not work in control mode. [#30070](https://github.com/ant-design/ant-design/pull/30070)
+- TypeScript
+  - 🤖 Fix Select can not contain `undefined` type. [#30068](https://github.com/ant-design/ant-design/pull/30068) [@Gamote](https://github.com/Gamote)
+  - 🤖 Fix Popconfirm `okButtonProps` and `cancelButtonProps` types. [#29928](https://github.com/ant-design/ant-design/pull/29928) [@IggsGrey](https://github.com/IggsGrey)
+- Locale
+  - 🇪🇸 Add es_ES locale for `Table.SELECTION_NONE`. [#29962](https://github.com/ant-design/ant-design/pull/29962) [@liquorxm](https://github.com/liquorxm)
+
+## 4.15.0
+
+`2021-03-29`
+
+- 🆕 Table now supports `rowSelection.defaultSelectedRowKeys`. [#29879](https://github.com/ant-design/ant-design/pull/29879) [@keelii](https://github.com/keelii)
+- 🐞 Fix TextArea display value will be cut by `maxLength` when in controlled. Fix `onCompositionEnd` not trigger when input exceed `maxLength`. Fix emoji count not align with `maxLength` & `showCount`. [#29867](https://github.com/ant-design/ant-design/pull/29867)
+- 🐞 Fix Button click effect style not working in shadow root. [#29897](https://github.com/ant-design/ant-design/pull/29897) [@JohnDeved](https://github.com/JohnDeved)
+- Pagination
+  - 💄 Fix Pagination focus style stay after interaction. [#29891](https://github.com/ant-design/ant-design/pull/29891)
+  - 🐞 Fix Pagination jump input height not correct when config `modifyVars`. [#29886](https://github.com/ant-design/ant-design/pull/29886) [@SyMind](https://github.com/SyMind)
+- 🐞 Fix Steps progress item getting cut at edge. [#29893](https://github.com/ant-design/ant-design/pull/29893)
+- 🛠 Prevent Upload drop event bubbling to handle nest case. [#29832](https://github.com/ant-design/ant-design/pull/29832) [@jojonarte](https://github.com/jojonarte)
+- 🐞 Apply ConfigProvider `componentSize` on Tabs component. [#29844](https://github.com/ant-design/ant-design/pull/29844) [@bn3t](https://github.com/bn3t)
+- 💄 Remove Tag hover style since it do not have click interactive. [#29874](https://github.com/ant-design/ant-design/pull/29874)
+- 🇫🇷 Add missing `fr_FR` translations. [#29839](https://github.com/ant-design/ant-design/pull/29839) [@bn3t](https://github.com/bn3t)
+- 🇸🇪 Add missing `sv_SE` translations. [#29896](https://github.com/ant-design/ant-design/pull/29896) [@isakol](https://github.com/isakol)
+
+## 4.14.1
+
+`2021-03-22`
+
+- 🐞 Fix Tabs position shift when active item changed. [#29781](https://github.com/ant-design/ant-design/issues/29781)
+- 🐞 Fix `placeholder` not being hidden when Image is loaded from cache. [#29829](https://github.com/ant-design/ant-design/pull/29829)
+- 💄 Improve Checkbox/Radio label text layout. [#29788](https://github.com/ant-design/ant-design/pull/29788)
+- TypeScript
+  - 🤖 Fix Upload type declaration of `beforeUpload`. [#29766](https://github.com/ant-design/ant-design/pull/29766)
+
+## 4.14.0
+
+`2021-03-14`
+
+- Upload
+  - 🆕 Upload `onChange` to change back to the original behavior (before Upload false returns the original file, and the rest of the scene returns the encapsulated object). Now you can always get the original file via `onChange.info.originFileObj`. For future upgrades, please use this method to access the original text first. [#29737](https://github.com/ant-design/ant-design/pull/29737)
+  - 🐞 Fix Upload `onChange` params `file` can not `cloneDeep` by lodash. [#29718](https://github.com/ant-design/ant-design/pull/29718)
+  - 🐞 Fix Upload crash when `fileList` is `null`. [#29702](https://github.com/ant-design/ant-design/pull/29702)
+  - 💄 Upload motion add 2s deadline to avoid developer manually remove motion makes hanging. [#29686](https://github.com/ant-design/ant-design/pull/29686)
+- 🐞 Fix the bug that Modal footer buttons not spaced properly when using href in button. [#29681](https://github.com/ant-design/ant-design/pull/29681) [@n0ruSh](https://github.com/n0ruSh)
+- 🆕 Add parent class for different Notification types. [#29634](https://github.com/ant-design/ant-design/pull/29634) [@n0ruSh](https://github.com/n0ruSh)
+- 🆕 Typography editable supports `onCancel` and `onEnd`. [#29615](https://github.com/ant-design/ant-design/pull/29615) [@jueinin](https://github.com/jueinin)
+- Tabs
+  - 🐞 Fix Tabs `centered` prop is not actually center. [#29495](https://github.com/ant-design/ant-design/pull/29495) [@jinchaofs](https://github.com/jinchaofs)
+  - 🆕 Tabs support `moreIcon`. [#29744](https://github.com/ant-design/ant-design/pull/29744) [@tianyuan233](https://github.com/tianyuan233)
+- 🐞 Button with `htmlType='reset'` will reset all form fileds. [#29752](https://github.com/ant-design/ant-design/pull/29752) [@jueinin](https://github.com/jueinin)
+- 🐞 Fix AutoComplete custom input `className` missing. [#29725](https://github.com/ant-design/ant-design/pull/29725)
+- 💄 Fix console warning when setting `margin` style on Row. [#29688](https://github.com/ant-design/ant-design/pull/29688)
+- 💄 Fix the error style where the `disabled` Input has affix elements. [#29670](https://github.com/ant-design/ant-design/pull/29670)
+- 💄 Optimize the cursor style of Form.Item tooltip info. [#29650](https://github.com/ant-design/ant-design/pull/29650)
+- 🇨🇿 Fix typo in cs_CZ locale. [#29675](https://github.com/ant-design/ant-design/pull/29675) [@jvaclavik](https://github.com/jvaclavik)
+- 🇨🇦 Add fr_CA locale. [#29748](https://github.com/ant-design/ant-design/pull/29748) [@liufenghua808](https://github.com/liufenghua808)
+
 ## 4.13.1
 
 `2021-03-06`

@@ -195,7 +195,8 @@ class Base extends React.Component<InternalBlockProps, BaseState> {
   };
 
   // ================ Edit ================
-  onEditClick = () => {
+  onEditClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
     this.triggerEdit(true);
   };
 
@@ -473,7 +474,7 @@ class Base extends React.Component<InternalBlockProps, BaseState> {
       }
 
       // show rest content as title on symbol
-      restContent = restContent?.slice(String(ellipsisContent || '').length);
+      restContent = restContent.slice(String(ellipsisContent || '').length);
 
       // We move full content to outer element to avoid repeat read the content by accessibility
       textNode = (
