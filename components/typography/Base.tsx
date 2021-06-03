@@ -67,10 +67,11 @@ export interface BlockProps extends TypographyProps {
   delete?: boolean;
   strong?: boolean;
   keyboard?: boolean;
+  italic?: boolean;
 }
 
 function wrapperDecorations(
-  { mark, code, underline, delete: del, strong, keyboard }: BlockProps,
+  { mark, code, underline, delete: del, strong, keyboard, italic }: BlockProps,
   content: React.ReactNode,
 ) {
   let currentContent = content;
@@ -87,6 +88,7 @@ function wrapperDecorations(
   wrap(code, 'code');
   wrap(mark, 'mark');
   wrap(keyboard, 'kbd');
+  wrap(italic, 'i');
 
   return currentContent;
 }
@@ -515,13 +517,14 @@ class Base extends React.Component<InternalBlockProps, BaseState> {
           this.expandStr = expand;
 
           return (
-            <ResizeObserver onResize={this.resizeOnNextFrame} disabled={!rows}>
+            <ResizeObserver onResize={this.resizeOnNextFrame} disabled={cssEllipsis}>
               <Typography
                 className={classNames(
                   {
                     [`${prefixCls}-${type}`]: type,
                     [`${prefixCls}-disabled`]: disabled,
                     [`${prefixCls}-ellipsis`]: rows,
+                    [`${prefixCls}-single-line`]: rows === 1,
                     [`${prefixCls}-ellipsis-single-line`]: cssTextOverflow,
                     [`${prefixCls}-ellipsis-multiple-line`]: cssLineClamp,
                   },

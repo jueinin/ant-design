@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount, render } from 'enzyme';
 import Table from '..';
 import Checkbox from '../../checkbox';
@@ -6,6 +7,9 @@ import { resetWarned } from '../../_util/devWarning';
 import ConfigProvider from '../../config-provider';
 
 describe('Table.rowSelection', () => {
+  window.requestAnimationFrame = callback => window.setTimeout(callback, 16);
+  window.cancelAnimationFrame = window.clearTimeout;
+
   const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
   afterEach(() => {
@@ -335,6 +339,8 @@ describe('Table.rowSelection', () => {
   });
 
   it('fires selectInvert event', () => {
+    jest.useFakeTimers();
+
     const order = [];
     const handleSelectInvert = jest.fn().mockImplementation(() => {
       order.push('onSelectInvert');
@@ -353,14 +359,24 @@ describe('Table.rowSelection', () => {
     checkboxes.at(1).simulate('change', { target: { checked: true } });
 
     // Open
-    wrapper.find('Trigger').setState({ popupVisible: true });
+    wrapper.find('span.ant-dropdown-trigger').simulate('mouseEnter');
 
-    const dropdownWrapper = mount(wrapper.find('Trigger').first().instance().getComponent());
-    dropdownWrapper.find('.ant-dropdown-menu-item').at(1).simulate('click');
+    // enzyme has bug for state sync.
+    // Let fresh multiple times to force sync back.
+    for (let i = 0; i < 3; i += 1) {
+      act(() => {
+        jest.runAllTimers();
+        wrapper.update();
+      });
+    }
+
+    wrapper.find('li.ant-dropdown-menu-item').at(1).simulate('click');
 
     expect(handleSelectInvert).toHaveBeenCalledWith([1, 2, 3]);
 
     expect(order).toEqual(['onChange', 'onSelectInvert', 'onChange']);
+
+    jest.useRealTimers();
   });
 
   it('fires selectNone event', () => {
@@ -416,12 +432,12 @@ describe('Table.rowSelection', () => {
     wrapper.find('Trigger').setState({ popupVisible: true });
 
     const dropdownWrapper = mount(wrapper.find('Trigger').first().instance().getComponent());
-    expect(dropdownWrapper.find('.ant-dropdown-menu-item').length).toBe(4);
+    expect(dropdownWrapper.find('li.ant-dropdown-menu-item').length).toBe(4);
 
-    dropdownWrapper.find('.ant-dropdown-menu-item').at(2).simulate('click');
+    dropdownWrapper.find('li.ant-dropdown-menu-item').at(2).simulate('click');
     expect(handleSelectOdd).toHaveBeenCalledWith([0, 1, 2, 3]);
 
-    dropdownWrapper.find('.ant-dropdown-menu-item').at(3).simulate('click');
+    dropdownWrapper.find('li.ant-dropdown-menu-item').at(3).simulate('click');
     expect(handleSelectEven).toHaveBeenCalledWith([0, 1, 2, 3]);
   });
 
@@ -456,12 +472,12 @@ describe('Table.rowSelection', () => {
     wrapper.find('Trigger').setState({ popupVisible: true });
 
     const dropdownWrapper = mount(wrapper.find('Trigger').first().instance().getComponent());
-    expect(dropdownWrapper.find('.ant-dropdown-menu-item').length).toBe(2);
+    expect(dropdownWrapper.find('li.ant-dropdown-menu-item').length).toBe(2);
 
-    dropdownWrapper.find('.ant-dropdown-menu-item').at(0).simulate('click');
+    dropdownWrapper.find('li.ant-dropdown-menu-item').at(0).simulate('click');
     expect(handleSelectOdd).toHaveBeenCalledWith([0, 1, 2, 3]);
 
-    dropdownWrapper.find('.ant-dropdown-menu-item').at(1).simulate('click');
+    dropdownWrapper.find('li.ant-dropdown-menu-item').at(1).simulate('click');
     expect(handleSelectEven).toHaveBeenCalledWith([0, 1, 2, 3]);
   });
 
@@ -847,6 +863,74 @@ describe('Table.rowSelection', () => {
 
     expect(wrapper.find('thead .ant-checkbox-input').props().disabled).toBeTruthy();
     expect(wrapper.find('thead .ant-checkbox-input').props().checked).toBeFalsy();
+  });
+
+  it('should make select all checked when each item is checked and disabled', () => {
+    const wrapper = mount(
+      createTable({
+        rowSelection: {
+          selectedRowKeys: [0, 1, 2, 3],
+          getCheckboxProps: () => ({
+            disabled: true,
+          }),
+        },
+      }),
+    );
+
+    expect(wrapper.find('thead .ant-checkbox-input').props().disabled).toBeTruthy();
+    expect(wrapper.find('thead .ant-checkbox-input').props().checked).toBeTruthy();
+  });
+
+  it('should make select all indeterminated when each item is disabled and some item is checked', () => {
+    const wrapper = mount(
+      createTable({
+        rowSelection: {
+          selectedRowKeys: [0],
+          getCheckboxProps: () => ({
+            disabled: true,
+          }),
+        },
+      }),
+    );
+
+    expect(wrapper.find('thead .ant-checkbox-input').props().disabled).toBeTruthy();
+    expect(wrapper.find('thead .ant-checkbox-input').props().checked).toBeFalsy();
+    expect(
+      wrapper.find('thead .ant-checkbox-indeterminate.ant-checkbox-disabled').exists(),
+    ).toBeTruthy();
+  });
+
+  it('should make select all checked when each item is checked and some item is disabled', () => {
+    const wrapper = mount(
+      createTable({
+        rowSelection: {
+          selectedRowKeys: [0, 1, 2, 3],
+          getCheckboxProps: record => ({
+            disabled: record.key === 0,
+          }),
+        },
+      }),
+    );
+
+    expect(wrapper.find('thead .ant-checkbox-input').props().disabled).toBeFalsy();
+    expect(wrapper.find('thead .ant-checkbox-input').props().checked).toBeTruthy();
+  });
+
+  it('should not make select all checked when some item is checked and disabled', () => {
+    const wrapper = mount(
+      createTable({
+        rowSelection: {
+          selectedRowKeys: [1],
+          getCheckboxProps: record => ({
+            disabled: record.key === 0,
+          }),
+        },
+      }),
+    );
+
+    expect(wrapper.find('thead .ant-checkbox-input').props().disabled).toBeFalsy();
+    expect(wrapper.find('thead .ant-checkbox-input').props().checked).toBeFalsy();
+    expect(wrapper.find('thead .ant-checkbox-indeterminate').exists()).toBeTruthy();
   });
 
   it('should onRowClick not called when checkbox clicked', () => {

@@ -433,7 +433,7 @@ describe('Upload', () => {
 
     wrapper.find('div.ant-upload-list-item .anticon-delete').simulate('click');
 
-    setImmediate(() => {
+    setTimeout(() => {
       wrapper.update();
 
       expect(mockRemove).toHaveBeenCalled();
@@ -499,7 +499,7 @@ describe('Upload', () => {
 
     wrapper.find('div.ant-upload-list-item .anticon-download').simulate('click');
 
-    setImmediate(() => {
+    setTimeout(() => {
       wrapper.update();
 
       expect(props.fileList).toHaveLength(1);
@@ -842,5 +842,26 @@ describe('Upload', () => {
     await act(async () => {
       await sleep();
     });
+  });
+
+  // https://github.com/ant-design/ant-design/issues/30390
+  // IE11 Does not support the File constructor
+  it('should not break in IE if beforeUpload returns false', async () => {
+    const onChange = jest.fn();
+    const wrapper = mount(<Upload beforeUpload={() => false} fileList={[]} onChange={onChange} />);
+    const fileConstructor = () => {
+      throw new TypeError("Object doesn't support this action");
+    };
+    global.File = jest.fn().mockImplementationOnce(fileConstructor);
+
+    await act(async () =>
+      wrapper.find('input').simulate('change', {
+        target: {
+          files: [{ file: 'foo.png' }],
+        },
+      }),
+    );
+
+    expect(onChange.mock.calls[0][0].fileList).toHaveLength(1);
   });
 });
